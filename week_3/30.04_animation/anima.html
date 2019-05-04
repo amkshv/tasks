@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Animation</title>
+</head>
+
+<body>
+  <p><button onclick="start()">START</button></p>
+  <canvas width="400" height="400" id="canvas" style="border: 1px solid black">U MAD?</canvas>
+  <div style="display:none;">
+      <img id="source" src="source.png"
+           width="300" height="227">
+  </div>
+</body>
+
+<script>
+  var canvas = document.getElementById('canvas');
+  var image = document.getElementById('source');
+  ctx = canvas.getContext('2d');
+
+  var x = 0;
+  var y = 0;
+  var dx = 1;
+  var dy = 50;
+  var size = 50;
+
+  draw();
+
+  function draw(){
+    ctx.fillStyle = 'orange';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = 'purple';
+    //ctx.fillRect(x, y, size, size);
+    ctx.drawImage(image, x, y);
+  }
+
+  function update(){
+    if (x + size > canvas.width || x < 0){
+      dx = -dx;
+      if(y + 2*size > canvas.height || y < 0) {
+        dy = -dy;
+      }
+      y += dy;
+    } 
+    x += dx;
+    
+    console.log(`X: ${x}  Y: ${y}`);
+    draw();
+  }
+
+  function start(){
+    setInterval(update, 5);
+  }
+</script>
+</html>

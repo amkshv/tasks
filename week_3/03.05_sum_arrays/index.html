@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+var a = [2, 5, 7, 4, 1, -6, 8];
+var b = [-3, 8, 24, 11, 5, 0, 6, 9, 9];
+var c = [];
+var max = Math.max(a.length, b.length);
+var min = Math.min(a.length, b.length);
+
+for(var i = 0; i < max; i++) {
+    if(!min[i]) a.push(0);
+    c.push(a[i] + b[i]);
+}
+
+alert(c);
+</script>
+</html>

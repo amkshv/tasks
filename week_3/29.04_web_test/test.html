@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>TEST with JS</title>
+</head>
+
+<body>
+    <h1>Тест</h1>
+<div id='main' style="background-color: mediumvioletred; color: pink;">
+    
+        <h2>3+5?</h2>
+    <div id='question'>
+        <p><input type="checkbox" name="b" value="8" id='1.1'>8</p>
+        <p><input type="checkbox" name="a" value="14" id='1.2'>14</p>
+        <p><input type="checkbox" name="a" value="6" id='1.3'>6</p>
+        <p><input type="checkbox" name="a" value="7" id='1.4'>7</p>
+    </div>
+    <h2>4+?=16</h2>
+    <div>
+        <p><input type="checkbox" name="a" value="6">6</p>
+        <p><input type="checkbox" name="b" value="12">12</p>
+        <p><input type="checkbox" name="a" value="9">9</p>
+        <p><input type="checkbox" name="a" value="4">4</p>
+    </div>
+    <h2>Знак вычитания</h2>
+    <div>
+        <p><input type="checkbox" name="a" value="+">+</p>
+        <p><input type="checkbox" name="a" value="%">%</p>
+        <p><input type="checkbox" name="a" value="/">/</p>
+        <p><input type="checkbox" name="b" value="-">-</p>
+    </div>
+</div>
+<button type="button" onclick="result()">Take Result</button>
+    <p id='result'></p>
+</body>
+<script>
+function result(){
+    // var result = document.getElementById('result');
+    // if (document.getElementById('1.2').checked || document.getElementById('1.3').checked || document.getElementById('1.4').checked){
+    //     alert('Ответ неверный');
+    // } else if(document.getElementById('1.1').checked){
+    //     alert('Ответ верный');
+    // }
+    var main = document.getElementById('main')
+    var result = 0;
+    for (var i=0; i<main.children.length; i++){
+        for (var y=0; y<main.children[i].children.length; y++){
+            if (main.children[i].children[y].firstChild.getAttribute("name") == 'a' && main.children[i].children[y].firstChild.checked){
+                result--;
+            } else if(main.children[i].children[y].firstChild.getAttribute("name") == 'b' && main.children[i].children[y].firstChild.checked) {
+                result++;
+            }
+        }
+    };
+    document.getElementById('result').textContent = 'Your result: ' + result;
+}
+</script>
+</html>
