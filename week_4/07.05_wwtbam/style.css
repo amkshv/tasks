@@ -1,0 +1,89 @@
+body {
+	background: black;
+	font-family: 'Roboto Slab', serif;
+}
+
+audio {
+	display: none;
+}
+
+a {
+	text-decoration: none;
+}
+
+.container {
+	width: 960px;
+	margin: 0 auto;
+}
+
+#game {
+	display: flex;
+	flex-direction: column;
+}
+
+#levels {
+	display: flex;
+	flex-direction: column-reverse;
+	list-style: none;
+	margin: 40px 0;
+	color: white;
+	text-align: right;
+	font-size: 1.3em;
+}
+
+.currLvl {
+	color: green;
+	font-size: 1.4em;
+}
+.safe {
+	color: #FF7E00;
+}
+
+#question-box {
+	display: flex;
+	align-items: center;
+	background: #ddd;
+	padding: 10px;
+	font-size: 1.5em;
+}
+
+.big-text {
+	color: #FF7E00;
+	font-size: 2em;
+	margin-right: 15px;
+}
+
+#money {
+	font-size: 1.9em;
+	font-weight: bold;
+	color: green;
+	text-align: right;
+	display: block;
+	height: 50px;
+	padding-top: 20px;
+}
+
+#logo {
+	width: 480px;
+	float: left;
+	margin-left: 240px;
+	margin-top: 60px;
+}
+
+#answer-box {
+	margin-top: 5px;
+	color: white;
+	font-size: 1.3em;
+	text-align: left;
+}
+
+.answer {
+	display: flex;
+	align-items: center;
+	color: white;
+}
+
+.answer:hover {
+	outline: 2px solid #FF7E00;
+}
+

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Кто хочет стать Миллионером?</title>
+  <link href="http://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <!-- Audio -->
+  <audio id="background" controls volume="0.1" autoplay loop>
+  <source src="sound/background.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+  </audio>
+  <audio id="right_sound" src='sound/right.mp3'></audio>
+  <audio id="wrong_sound" src='sound/wrong.mp3'></audio>
+
+  <!-- Game Contents -->
+  <div id="game">
+    <div class="container">
+      <img src="logo.jpg" id="logo" />
+      <ul id="levels">
+        <li>100</li>
+        <li>200</li>
+        <li>300</li>
+        <li>500</li>
+        <li>1 000</li>
+        <li>2 000</li>
+        <li>4 000</li>
+        <li>8 000</li>
+        <li>16 000</li>
+        <li>32 000</li>
+        <li>64 000</li>
+        <li>125 000</li>
+        <li>250 000</li>
+        <li>500 000</li>
+        <li>1 000 000</li>
+      </ul>
+    </div>
+
+    <div id="question-box" class="container">
+      <span class="big-text">Q:</span>
+      <span class="content"></span>
+    </div>
+    <div id="answer-box" class="container">
+
+      <a href="#" id="answer-1" onclick="checkAnswer(1)">
+        <div class="answer">
+          <span class="big-text">A.</span><span></span>
+        </div>
+      </a>
+      <a href="#" id="answer-2" onclick="checkAnswer(2)">
+        <div class="answer">
+          <span class="big-text">B.</span><span></span>
+        </div>
+      </a>
+      <a href="#" id="answer-3" onclick="checkAnswer(3)">
+        <div class="answer">
+          <span class="big-text">C.</span><span></span>
+        </div>
+      </a>
+      <a href="#" id="answer-4" onclick="checkAnswer(4)">
+        <div class="answer">
+          <span class="big-text">D.</span><span></span>
+        </div>
+      </a>
+    </div>
+  </div>
+</body>
+<!-- CODE GOES HERE -->
+<script>
+  document.addEventListener("DOMContentLoaded", getQuestion(1));
+
+  var prompt = prompt("Какой уровень сделать несгораемым?", '');
+  if(prompt < 0 || prompt > 15 || prompt === null || prompt === '') prompt = 10;
+  --prompt;
+  console.log("Safety net: " + (prompt+1));
+
+  var currLvl = 0;
+  var prevLvl = null;
+  var levels = document.getElementById("levels").getElementsByTagName('li');
+  levels[prompt].className = "safe";
+  var cash = 0;
+
+  function getQuestion(lvl) {
+    fetch('https://cors-anywhere.herokuapp.com/https://lip2.xyz/api/millionaire.php/?q=' + lvl)
+      .then(data => data.json())
+      .then(data => data)
+      .then(function (data) {
+        //inserting question in HTML
+        document.getElementById("question-box").lastChild.textContent = data.data.question;
+        var answers = data.data.answers;
+        var correct = answers[0];
+        //shuffle answers
+        answers.sort(() => Math.random() - 0.5);
+        //
+        correct = answers.indexOf(correct);
+        //console.log("Correct: " + (correct + 1));
+
+        //inserting answers in HTML
+        for (var i = 0; i < answers.length; ++i) {
+          document.getElementById('answer-' + (i + 1)).firstElementChild.lastElementChild.textContent = answers[i];
+          if (i === correct) {
+            document.getElementById('answer-' + (i + 1)).className = "correct";
+          }
+        }
+        updateLvl();
+      });
+  }
+
+  function checkAnswer(n) {
+    var elm = document.getElementById('answer-' + n);
+
+    if (elm.className === "correct") {
+      blink(elm);
+      playRight();
+      elm.classList.remove("correct");
+      currLvl++;
+      prevLvl = currLvl - 1;
+      //changing question difficulty
+      if (currLvl <= 5) {
+        getQuestion(1);
+      } else if (currLvl <= 10) {
+        getQuestion(2);
+      } else if (currLvl < 15){
+        getQuestion(3);
+      } else {
+        alert("Поздравляем! Вы стали Миллионером!");
+        window.location.reload(true);
+      }
+
+    }
+    else {
+      playWrong();
+      alert("Ваш выйгрыш составил " + cash + " сом.");
+      window.location.reload(true);
+    }
+
+  }
+
+  function updateLvl() {
+    if(currLvl > prompt) {
+      //you've reached safety net
+      cash = levels[prompt].innerHTML;
+      levels[prompt].className = "safe";
+    } else {
+      cash = 0;
+    }
+    //setting style for current level
+    for (i = 0; i < levels.length; ++i) {
+      levels[i].classList.remove("currLvl");
+    } 
+    levels[currLvl].className = "currLvl";
+  }
+
+  function playRight() {
+    var audio = document.getElementById("right_sound");
+    audio.play();
+  }
+
+  function playWrong() {
+    var audio = document.getElementById("wrong_sound");
+    audio.play();
+  }
+
+</script>
+
+</html>

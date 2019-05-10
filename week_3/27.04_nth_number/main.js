@@ -7,7 +7,7 @@ function findDigit () {
         return alert("-1");
     }
     if(num1[0] === '-') {
-        num1 = num1.substring(1, num1.length);
+        num1 = num1.slice(1);
     }
     var integer = parseInt(num2, 10);
     if(integer > num1.length) {
