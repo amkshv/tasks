@@ -46,8 +46,8 @@
       <span class="big-text">Q:</span>
       <span class="content"></span>
     </div>
-    <div id="answer-box" class="container">
 
+    <div id="answer-box" class="container">
       <a href="#" id="answer-1" onclick="checkAnswer(1)">
         <div class="answer">
           <span class="big-text">A.</span><span></span>
@@ -116,7 +116,6 @@
     var elm = document.getElementById('answer-' + n);
 
     if (elm.className === "correct") {
-      blink(elm);
       playRight();
       elm.classList.remove("correct");
       currLvl++;
